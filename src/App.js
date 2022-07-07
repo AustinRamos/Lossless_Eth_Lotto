@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { ethers, utils } from 'ethers'
+import { useEffect, useState } from 'react'
+import Lottery from './artifacts/contracts/Lottery.sol/Lottery.json'
+//import LotteryFactory from './artifacts/contracts/LotteryFactory.sol/LotteryFactory.json'
+import {
+  Route,
+  Routes,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
 
-function App() {
+import LotteryView from './components/LotteryView'
+import LotteryDashboard from './components/LotteryDashboard'
+
+
+function App({ lotteryFactoryAddress, provider, signer }) {
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <LotteryDashboard
+        lotteryFactoryAddress={lotteryFactoryAddress}
+        provider={provider}
+        signer={signer}>
+      </LotteryDashboard>
+
+   
+      <Routes>
+{/* do I get players in app to send to the component or just do it over there? */}
+        <Route path="lottery/:lottoId" element={<LotteryView provider={provider} signer={signer} ></LotteryView>}></Route>
+      </Routes>
     </div>
   );
 }
