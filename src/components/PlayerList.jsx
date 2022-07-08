@@ -1,28 +1,31 @@
 import {ethers, utils} from 'ethers'
 import {useEffect, useState} from 'react'
+import Lottery from '../artifacts/contracts/Lottery.sol/Lottery.json'
 
 
-function PlayerList({players, provider, signer}) {
-    //const [players, setPlayers] = useState(0);
+
+function PlayerList({lottery_address, provider, signer}) {
+    const [players, setPlayers] = useState(0);
     const [balance, setBalance] = useState(0);
-    // useEffect(() => {
+    useEffect(() => {
   
-    //   if (typeof window.ethereum !== 'undefined') {
-    //     const contract = new ethers.Contract(lotteryAddress, Lottery.abi, provider)
+      if (typeof window.ethereum !== 'undefined') {
+        const contract = new ethers.Contract(lottery_address, Lottery.abi, provider)
   
-    //     contract.getPlayers().then(resp => {
+        contract.getPlayers().then(resp => {
   
-    //       setPlayers(resp)
-    //     }
-    //     ).catch(e => console.log(e))
-    //     provider.getBalance(lotteryAddress).then(resp => {
-    //       const bal = ethers.utils.formatEther(resp)
-    //       setBalance(bal)
-    //     })
-    //   }
+          setPlayers(resp)
+        }
+        ).catch(e => console.log(e))
+
+        // provider.getBalance(lottery_address).then(resp => {
+        //   const bal = ethers.utils.formatEther(resp)
+        //   setBalance(bal)
+        // })
+      }
   
-    // }, [])
-if(players==0){
+    }, [])
+if(players==undefined || players==0){
             return;
 }
 
