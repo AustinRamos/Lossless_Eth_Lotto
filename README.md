@@ -1,19 +1,14 @@
-# Basic Sample Hardhat Project
+# Lossless eth lotto 
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This is a relatively simple project ive been working on to learn solidity, react, ethers, hardhat, etc.
 
-Try running some of the following tasks:
+It consists of a factory contract to create lossless lotteries. for simplicity sake we will use Curve testnet contracts for 'yield' It would be cool to customize yield strategies by the lottery manager.
 
-```shell
-npx hardhat accounts
+npx hardhat 
+
 npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
 
+deploy to goerli
 
 Common commands 
 npx hardhat run scripts/deploy.js --network localhost
