@@ -1,44 +1,41 @@
 import '../App.css';
-import {ethers, utils} from 'ethers'
-import {useEffect, useState} from 'react'
+import { ethers, utils } from 'ethers'
+import { useEffect, useState } from 'react'
 import Lottery from '../artifacts/contracts/Lottery.sol/Lottery.json'
 import PlayerList from './PlayerList'
-import {
-    useParams
-  } from "react-router-dom";
-  
+import { useParams } from "react-router-dom";
 
-function LotteryView({lotteryAddress, provider, signer, players, balance}) {
- 
 
-console.log("lotteryAddress" , lotteryAddress)
+function LotteryView({ provider, signer, players, balance }) {
 
-console.log("LOTTERY VIEW")
 
-const {lottoId} = useParams()
 
-console.log("ID : ", lottoId)
-const enterLottery = () =>{
-  if (typeof window.ethereum !== 'undefined') {
-    const contract = new ethers.Contract(lotteryAddress, Lottery.abi, signer)
-const options = {value: utils.parseEther("1")}
-    contract.enter(options).then((resp)=>
-    console.log(resp))
+
+    const { lottoAddress } = useParams()
+
+    //if lottoaddress DNE then return DOES NOT EXIST 
+
+    const enterLottery = () => {
+        if (typeof window.ethereum !== 'undefined') {
+            const contract = new ethers.Contract(lottoAddress, Lottery.abi, signer)
+            const options = { value: utils.parseEther("1") }
+            contract.enter(options).then((resp) =>
+                console.log(resp))
+        }
+
+
     }
 
-  
-}
 
+    return (
+        <div>
+            <h2> Lotto {lottoAddress.substring(0, 7)}...</h2>
+            <button onClick={enterLottery}> enter lottery </button>
 
-  return (
-    <div>
-    <h2> Lotto {lottoId.substring(0,7)}...</h2>
-    <button onClick={enterLottery}> enter lottery </button>
+            <PlayerList lottoAddress={lottoAddress} provider={provider}> </PlayerList>
 
-    <PlayerList lottery_address = {lottoId}> </PlayerList>
-    
-    </div>
-  );
+        </div>
+    );
 }
 
 export default LotteryView;

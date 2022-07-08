@@ -4,24 +4,27 @@ import Lottery from '../artifacts/contracts/Lottery.sol/Lottery.json'
 
 
 
-function PlayerList({lottery_address, provider, signer}) {
+function PlayerList({lottoAddress, provider, signer}) {
     const [players, setPlayers] = useState(0);
     const [balance, setBalance] = useState(0);
     useEffect(() => {
   
       if (typeof window.ethereum !== 'undefined') {
-        const contract = new ethers.Contract(lottery_address, Lottery.abi, provider)
-  
+        const contract = new ethers.Contract(lottoAddress, Lottery.abi, provider)
+  console.log("provider ", provider)
         contract.getPlayers().then(resp => {
-  
+  console.log("get players: ", resp)
           setPlayers(resp)
         }
-        ).catch(e => console.log(e))
+        ).catch(e => 
+            {console.log(e)
+                console.log("ERROR GET PLAYERS ")
+            })
 
-        // provider.getBalance(lottery_address).then(resp => {
-        //   const bal = ethers.utils.formatEther(resp)
-        //   setBalance(bal)
-        // })
+        provider.getBalance(lottoAddress).then(resp => {
+          const bal = ethers.utils.formatEther(resp)
+          setBalance(bal)
+        })
       }
   
     }, [])
@@ -40,6 +43,7 @@ if(players==undefined || players==0){
         )}
         </ul>
 
+            <h3>Eth in lottery: {balance}</h3>
         </div>
     )
 }

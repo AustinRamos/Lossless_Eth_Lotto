@@ -22,11 +22,8 @@ function LotteryDashboard({ lotteryFactoryAddress, provider, signer }) {
 
 
     const createLotto = () => {
-        console.log("signer:", signer)
-        console.log("CreateLotto")
         const factoryContract = new ethers.Contract(lotteryFactoryAddress, LotteryFactory.abi, signer)
         factoryContract.newLottery().then(resp => {
-            console.log("LOTTO CREATED : ", resp)
         })
 
     }

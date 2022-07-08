@@ -26,10 +26,10 @@ function App({ lotteryFactoryAddress, provider, signer }) {
         signer={signer}>
       </LotteryDashboard>
 
-   
+
       <Routes>
-{/* do I get players in app to send to the component or just do it over there? */}
-        <Route path="lottery/:lottoId" element={<LotteryView provider={provider} signer={signer} ></LotteryView>}></Route>
+        {/* do I get players in app to send to the component or just do it over there? */}
+        <Route path="lottery/:lottoAddress" element={<LotteryView provider={provider} signer={signer} ></LotteryView>}></Route>
       </Routes>
     </div>
   );
